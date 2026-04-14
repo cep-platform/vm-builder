@@ -39,12 +39,12 @@ apt install genisoimage    # or: apt install xorriso
 ## Install
 
 ```bash
-go install github.com/adam/vm-builder/cmd/vmbuilder@latest
+go install github.com/cep-platform/vm-builder/cmd/vmbuilder@latest
 ```
 
 Or build from source:
 ```bash
-git clone https://github.com/adam/vm-builder
+git clone https://github.com/cep-platform/vm-builder
 cd vm-builder
 go build -o ~/bin/vmbuilder ./cmd/vmbuilder
 ```
