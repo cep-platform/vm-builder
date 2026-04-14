@@ -20,6 +20,8 @@ type Config struct {
 	Hostname   string
 	SSHPubKey  string // full public key line, e.g. "ssh-ed25519 AAAA..."
 	ExtraSetup []string
+	Arch       string // "amd64" or "arm64" — used to fetch the correct Go tarball
+	GoVersion  string // Go version to install, e.g. "1.25.5"
 }
 
 // Generate creates a cloud-init seed ISO at destPath.
@@ -65,12 +67,29 @@ func userData(cfg Config) string {
 	// cloud-init's 'packages' module calls the native package manager.
 	sb.WriteString("packages:\n")
 	sb.WriteString("  - git\n")
-	sb.WriteString("  - go\n")
 	sb.WriteString("  - openssh\n")
 	sb.WriteString("  - curl\n")
 	sb.WriteString("  - bash\n")
 
+	// Write a reusable script that installs the native build/graphics deps needed
+	// by Go packages that link against OpenGL, X11, etc.
+	sb.WriteString("\nwrite_files:\n")
+	sb.WriteString("  - path: /usr/local/bin/install-go-deps\n")
+	sb.WriteString("    permissions: '0755'\n")
+	sb.WriteString("    content: |\n")
+	sb.WriteString("      #!/bin/sh\n")
+	sb.WriteString("      apk add \\\n")
+	sb.WriteString("        gcc musl-dev \\\n")
+	sb.WriteString("        mesa-dev mesa-gl mesa-egl mesa-gles \\\n")
+	sb.WriteString("        libx11-dev libxcursor-dev libxrandr-dev \\\n")
+	sb.WriteString("        libxinerama-dev libxi-dev libxxf86vm-dev \\\n")
+	sb.WriteString("        pkgconfig\n")
+
+	// Install Go from the official tarball to guarantee the required version.
+	goURL := fmt.Sprintf("https://go.dev/dl/go%s.linux-%s.tar.gz", cfg.GoVersion, cfg.Arch)
 	sb.WriteString("\nruncmd:\n")
+	sb.WriteString(fmt.Sprintf("  - curl -fsSL %s | tar -C /usr/local -xz\n", goURL))
+	sb.WriteString("  - /usr/local/bin/install-go-deps\n")
 	sb.WriteString("  - rc-update add sshd default\n")
 	sb.WriteString("  - rc-service sshd start\n")
 	// Persist sshd across reboots (Alpine uses OpenRC)

@@ -9,7 +9,8 @@ import (
 )
 
 const (
-	DefaultAlpineVersion = "3.21.6"
+	DefaultAlpineVersion = "3.23"  //to have gcc
+	DefaultGoVersion     = "1.25.5"
 	DefaultMemoryMB      = 4096
 	DefaultDiskGB        = 20
 	DefaultCPUs          = 2

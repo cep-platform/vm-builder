@@ -89,6 +89,8 @@ func Create(opts CreateOptions) (*config.VMConfig, error) {
 	ciCfg := cloudinit.Config{
 		Hostname:  opts.Name,
 		SSHPubKey: sshPubKey,
+		Arch:      string(a),
+		GoVersion: config.DefaultGoVersion,
 	}
 	if err := cloudinit.Generate(ciCfg, ciPath); err != nil {
 		return nil, fmt.Errorf("cloud-init: %w", err)
