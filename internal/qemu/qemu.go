@@ -8,8 +8,8 @@ import (
 	"runtime"
 	"strconv"
 
-	"github.com/adam/vm-builder/internal/arch"
-	"github.com/adam/vm-builder/internal/config"
+	"github.com/cep-platform/vm-builder/internal/arch"
+	"github.com/cep-platform/vm-builder/internal/config"
 )
 
 // Args builds the full qemu-system-* argument list for launching a VM.

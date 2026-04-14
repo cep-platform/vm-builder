@@ -10,8 +10,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/adam/vm-builder/internal/arch"
-	"github.com/adam/vm-builder/internal/config"
+	"github.com/cep-platform/vm-builder/internal/arch"
+	"github.com/cep-platform/vm-builder/internal/config"
 )
 
 const alpineCDN = "https://dl-cdn.alpinelinux.org/alpine"

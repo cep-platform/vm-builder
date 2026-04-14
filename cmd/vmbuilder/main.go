@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/adam/vm-builder/internal/vm"
+	"github.com/cep-platform/vm-builder/internal/vm"
 )
 
 func main() {

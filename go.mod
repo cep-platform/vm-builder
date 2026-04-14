@@ -1,4 +1,4 @@
-module github.com/adam/vm-builder
+module github.com/cep-platform/vm-builder
 
 go 1.25.8
 

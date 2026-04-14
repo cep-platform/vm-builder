@@ -11,11 +11,11 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/adam/vm-builder/internal/arch"
-	"github.com/adam/vm-builder/internal/cloudinit"
-	"github.com/adam/vm-builder/internal/config"
-	"github.com/adam/vm-builder/internal/image"
-	"github.com/adam/vm-builder/internal/qemu"
+	"github.com/cep-platform/vm-builder/internal/arch"
+	"github.com/cep-platform/vm-builder/internal/cloudinit"
+	"github.com/cep-platform/vm-builder/internal/config"
+	"github.com/cep-platform/vm-builder/internal/image"
+	"github.com/cep-platform/vm-builder/internal/qemu"
 )
 
 // CreateOptions holds the user-facing options for creating a new VM.
